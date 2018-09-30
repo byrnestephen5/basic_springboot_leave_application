@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<!-- https://www.youtube.com/watch?v=lIgFe20dYq4&t=1734s  -->
+
+<script type="text/javascript" src ="webjars/jquery/3.0.0/jquery.min.js"></script>
+<script type="text/javascript" src ="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src ="@{js/main.js}" src="../static/js/main.js"></script>
+
+<link rel="stylesheet" href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" />
+
+</head>
+<body>
+
+	<div class ="container">
+	<button class="btn btn-success btn-sm nBtn">New</button>
+	<div class="card">
+	<div class="card-block">
+	<table class="table table-hover table-condensed">
+	<thead> 
+	
+	<tr>
+	<th>UserID</th>
+	<th>First Name</th>
+	<th>Surname</th>
+	<th>Team Id</th>
+	
+	</tr>
+	
+	</thead>
+	<tbody>
+	<tr th:each="teammember : ${data.content}">
+		<td th:text="${teammember.id}"></td>
+		<td th:text="${teammember.firstname}"></td>		
+		<td th:text="${teammember.lastname}"></td>
+		<td th:text="${teammember.teamid}"></td>
+		<td>
+		<a th:href="@{delete/(id=${teammember.id})}" class="btn btn-danger btn-sm delBtn">Delete</a> 
+		<a th:href="@{findOne/(id=${teammember.id})}" class="btn btn-primary btn-sm eBtn">Edit</a>
+		 </td>
+
+	</tr>
+
+	</tbody>
+
+	</table>
+	<hr/>
+	<ul class="nav nav-pills">
+	<li class="nav-item" 
+	th:each= "i : ${#numbers.sequence(0,data.totalPages-1)}">
+	 <a th:href="@{/(page=${i})}" th:text="${i}" class="nav-link"
+	 th:classappend="${currentPage}==${i}?'active':''"></a>
+	 </li>
+	</ul>
+	
+
+	</div>
+	</div>
+	
+	<div class="myForm">
+	<form th:action="@{/save}" method="post">
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="id" class="col-form-label">User ID:</label>
+            <input type="text" class="form-control" id="id" name="id" value="" />
+          </div>
+ 		  <div class="form-group">
+            <label for="firstname" class="col-form-label">First Name:</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" value="" />
+          </div>
+ 		  <div class="form-group">
+            <label for="lastname" class="col-form-label">Surname:</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" value="" />
+          </div>
+          <div class="form-group">
+            <label for="teamid" class="col-form-label">Team ID:</label>
+            <input type="text" class="form-control" id="teamid" name="teamid" value="" />
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="save" />
+      </div>
+    </div>
+  </div>
+  
+</div>
+</form>	
+	
+	
+	</div>
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <p class="alert alert-danger">
+       Are you sure you want to delete this Team Member
+       </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="" class="btn btn-danger" id="delRef">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	</div>
+
+</body>
+</html>

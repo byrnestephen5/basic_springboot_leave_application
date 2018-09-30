@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+
+</head>
+<body>
+
+<!--  Maps to Result method -->
+<form th:action="@{/addTeamMember}" method = POST>
+UserID:<br>
+<input type="text" name = "id"  /><br />
+First name:<br>
+<input type="text" name = "firstname"  /><br />
+Surname:<br>
+<input type="text" name = "lastname"  /><br />
+TeamID:<br>
+<input type="text" name = "teamid"  /><br />
+
+
+
+
+
+<input type="submit" />
+
+</form>
+
+</body>
+</html>
